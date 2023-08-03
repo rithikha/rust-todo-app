@@ -1,0 +1,7 @@
+/Users/raj/Desktop/rust-todo-app/target/debug/deps/binascii-7c8bb96b2c66eb33.rmeta: /Users/raj/.cargo/registry/src/index.crates.io-6f17d22bba15001f/binascii-0.1.4/src/lib.rs
+
+/Users/raj/Desktop/rust-todo-app/target/debug/deps/libbinascii-7c8bb96b2c66eb33.rlib: /Users/raj/.cargo/registry/src/index.crates.io-6f17d22bba15001f/binascii-0.1.4/src/lib.rs
+
+/Users/raj/Desktop/rust-todo-app/target/debug/deps/binascii-7c8bb96b2c66eb33.d: /Users/raj/.cargo/registry/src/index.crates.io-6f17d22bba15001f/binascii-0.1.4/src/lib.rs
+
+/Users/raj/.cargo/registry/src/index.crates.io-6f17d22bba15001f/binascii-0.1.4/src/lib.rs:
