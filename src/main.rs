@@ -13,7 +13,7 @@ fn rocket() -> _ {
 use std::{fs::{OpenOptions}, io::{Write}};
 use rocket::serde::{Deserialize, json::Json};
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Serialize)]
 #[serde(crate = "rocket::serde")]
 struct Task<'r> {
     item: &'r str
@@ -32,6 +32,55 @@ fn add_task(task: Json<Task<'_>>) -> &'static str {
     tasks.write(task_item_bytes).expect("unable to write to tasks.txt");
     "Task added succesfully"
 }
+
+#[get("/readtasks")]
+fn read_tasks() -> Json<Vec<String>> {
+    let tasks = OpenOptions::new()
+                .read(true)
+                .append(true)
+                .create(true)
+                .open("tasks.txt")
+                .expect("unable to access tasks.txt");
+            let reader = BufReader::new(tasks);
+            Json(reader.lines()
+                        .map(|line| line.expect("unable to read line"))
+                        .collect())
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#[get("/readtasks")]
+fn read_tasks() -> Json<Vec<String>> {
+    let tasks = OpenOptions::new()
+                    .read(true)
+                    .append(true)
+                    .create(true)
+                    .open("tasks.txt")
+                    .expect("unable to access tasks.txt");  
+    let reader = BufReader::new(tasks);
+    Json(reader.lines()
+            .map(|line| line.expect("could not read line"))
+            .collect())
+}
+view rawmain.rs hosted with ❤ by GitHub
+
+
+
+
+
 
 
 
