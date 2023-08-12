@@ -60,4 +60,36 @@ struct TaskUpdate<'r> {
     item: &'r str
 }
 
+#[put("/edittask", data="<task_update>")]
+fn edit_task(task_update: Json<TaskUpdate<'_>>) -> &'static str {
+    let tasks = OpenOptions::new()
+                .read(true)
+                .append(true)
+                .create(true)
+                .open("tasks.text")
+                .expect("unable to access tasks.txt");
+    let mut temp = OpenOptions::new()
+                .create(true)
+                .write(true)
+                .truncate(true)
+                .open("temp.txt")
+                .expect("unable to access temp.txt");
+
+    let reader = BufReader::new(tasks);
+
+    for line in reader.lines() {
+        let line_string: String = line.expect("could not read line");
+        let line_pieces: Vec<&str> = line_string.split(",").collect();
+        
+        if line_pieces[0].parse::<u8>().expect("unable to parse id") != task_id.id {
+            let task = format!("{}\n", line_string);
+            temp.write(task.as_bytes()).expect("could not write to temp file");
+        }
+    }
+    
+    std::fs::remove_file("tasks.txt").expect("unable to remove tasks.txt");
+    std::fs::rename("temp.txt", "tasks.txt").expect("unable to rename temp.txt");
+    "Task deleted succesfully"
+}
+
 
