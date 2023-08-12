@@ -101,11 +101,10 @@ fn edit_task(task_update: Json<TaskUpdate<'_>>) -> &'static str {
     "Task updated succesfully"
 }
 
-
 #[derive(Deserialize, Serialize)]
 #[serde(crate = "rocket::serde")]
 struct TaskId<'r> {
-    id: u8
+    id: u8,
 }
 
 #[put("/deletetask", data = "<task_id>")]
@@ -131,7 +130,7 @@ fn delete_task(task_id: Json<TaskId<'_>>) -> &'static str {
         if line_pieces[0].parse::<u8>().expect("unable to parse id as u8") != task_id.id {
             let task = format!("{}\n", line_string);
             temp.write(task.as_bytes()).expect("could not write to temp file");
-        } 
+        }
     }
 
     std::fs::remove_file("tasks.txt").expect("unable to remove tasks.txt");
