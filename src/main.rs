@@ -59,6 +59,8 @@ fn read_tasks() -> Json<Vec<String>> {
     )
 }
 
+#[derive(Deserialize, Serialize)]
+#[serde(crate = "rocket::serde")]
 struct TaskUpdate<'r> {
     id: u8,
     item: &'r str,
